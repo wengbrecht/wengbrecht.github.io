@@ -94,6 +94,53 @@ figcaption { font: 400 12px/1.4 var(--mono); color: var(--muted); margin-top: 8p
 .spec td { padding: 7px 10px; border-top: 1px solid var(--rule); vertical-align: top; }
 .spec td:first-child { color: var(--muted); width: 40%; }
 
+/* baja scroll animation */
+.team--baja { position: relative; padding-bottom: 78px; }
+.baja-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 78px;
+  pointer-events: none;
+  overflow: hidden;
+}
+.baja-car {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: auto;
+  will-change: transform;
+  transform-origin: 50% 100%;
+}
+.baja-puff {
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  opacity: 0;
+  pointer-events: none;
+  animation: baja-puff 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes baja-puff {
+  0% {
+    opacity: 0.75;
+    transform: translate3d(0, 0, 0) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--puff-dx, -26px), -22px, 0) scale(2.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .baja-car { transform: translate3d(16px, 0, 0) scaleX(-1) !important; }
+  .baja-puff { display: none; }
+}
+
 /* before Maryland */
 .earlier { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 24px; }
 .earlier h3 { font-size: 20px; font-weight: 700; font-variation-settings: "wdth" 90; }
@@ -185,7 +232,7 @@ figcaption { font: 400 12px/1.4 var(--mono); color: var(--muted); margin-top: 8p
         </div>
       </article>
 
-      <article class="team">
+      <article class="team team--baja">
         <div class="media">
           <figure>
             <img src="images/baja-mud.jpg" width="1620" height="1080" loading="lazy" alt="A mud-covered Baja SAE off-road car cornering on a dirt course">
@@ -205,6 +252,9 @@ figcaption { font: 400 12px/1.4 var(--mono); color: var(--muted); margin-top: 8p
             <tr><td>Materials</td><td>Aluminum, steel</td></tr>
             <tr><td>Systems</td><td>Suspension, powertrain</td></tr>
           </table>
+        </div>
+        <div class="baja-track" aria-hidden="true">
+          <img class="baja-car" src="images/Baja_puttputt.png" alt="">
         </div>
       </article>
 
@@ -323,6 +373,142 @@ document.querySelectorAll(".copy").forEach(function (btn) {
     };
     try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
   });
+  (function () {
+  var track = document.querySelector(".baja-track");
+  var car = document.querySelector(".baja-car");
+  if (!track || !car) return;
+
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducedMotion) return;
+
+  var inView = false;
+  var lastTime = 0;
+  var currentX = null;
+  var velX = 0;
+  var dir = 1;     // 1 = facing right (scrolling down), -1 = facing left (scrolling up)
+  var facing = 1;  // smoothly interpolates between -1 and 1 during turns
+  var odometer = 0;
+  var distSincePuff = 0;
+  var lastIdlePuff = 0;
+
+  function spawnPuff(carX, carY, carWidth, direction) {
+    if (track.querySelectorAll(".baja-puff").length > 8) return;
+    var puff = document.createElement("span");
+    puff.className = "baja-puff";
+    // Place puff at the rear bumper and drift opposite to travel direction
+    var tailX = direction === 1 ? carX + 4 : carX + carWidth - 10;
+    puff.style.left = Math.max(2, tailX).toFixed(1) + "px";
+    puff.style.bottom = (20 - carY).toFixed(1) + "px";
+    puff.style.setProperty("--puff-dx", (-26 * direction) + "px");
+    track.appendChild(puff);
+    puff.addEventListener("animationend", function () { puff.remove(); });
+    setTimeout(function () { if (puff.parentNode) puff.remove(); }, 850);
+  }
+
+  function frame(now) {
+    if (inView) requestAnimationFrame(frame);
+
+    var dt = lastTime ? Math.min(0.05, (now - lastTime) / 1000) : 0.016;
+    lastTime = now;
+
+    var carWidth = car.offsetWidth;
+    if (!carWidth) return;
+
+    var rect = track.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+
+    var startY = vh * 0.92;
+    var endY = vh * 0.14;
+    var p = (startY - rect.bottom) / (startY - endY);
+    p = Math.max(0, Math.min(1, p));
+
+    var maxTravel = Math.max(0, track.clientWidth - carWidth);
+    var targetX = p * maxTravel;
+
+    // Snap cleanly on initial load so it doesn't fly across the page on refresh
+    if (currentX === null) {
+      currentX = targetX;
+    }
+
+    // Critically-damped spring physics for smooth acceleration and coasting momentum
+    var stiffness = 68;
+    var damping = 16.5;
+    var accelX = (targetX - currentX) * stiffness - velX * damping;
+    velX += accelX * dt;
+    currentX += velX * dt;
+
+    // Keep within margins without hard-bouncing
+    if (currentX < 0) {
+      currentX = 0;
+      if (velX < 0) velX = 0;
+    } else if (currentX > maxTravel) {
+      currentX = maxTravel;
+      if (velX > 0) velX = 0;
+    }
+
+    // Turn around when velocity reverses past a small deadband
+    if (velX > 6) dir = 1;
+    else if (velX < -6) dir = -1;
+
+    facing += (dir - facing) * Math.min(1, dt * 14);
+    var turnProgress = Math.abs(dir - facing); // peaks while pivoting
+
+    // Advance engine cycle proportionally to actual distance traveled
+    var step = Math.abs(velX) * dt;
+    odometer += step;
+    distSincePuff += step;
+    var theta = odometer * 0.075;
+
+    // Uneven 4-stroke torque pulse scaled by active movement
+    var speedFactor = Math.min(1, Math.abs(velX) / 140);
+    var surge = ((Math.sin(theta) * 2.2) + (Math.sin(theta * 2) * 0.8)) * speedFactor;
+    var renderX = Math.max(0, Math.min(maxTravel, currentX + surge));
+
+    // Suspension hop + turnaround kick + live idle rumble
+    var hop = (Math.abs(Math.sin(theta)) * 4.2 + Math.abs(Math.sin(theta * 2.5)) * 1.1) * speedFactor;
+    var turnHop = turnProgress * 2.4;
+    var idleRumble = Math.abs(Math.sin(now * 0.028)) * 0.75;
+    var y = -(hop + turnHop + idleRumble);
+
+    // Weight transfer (nose lifts on throttle, dips under braking) + terrain pitch
+    var forwardAccel = accelX * dir;
+    var weightPitch = -dir * Math.max(-3.5, Math.min(3.5, forwardAccel * 0.0045));
+    var terrainPitch = (-dir * Math.sin(theta * 2) * 2.2) * speedFactor;
+    var idleRock = Math.sin(now * 0.028) * 0.45;
+    var pitch = weightPitch + terrainPitch + idleRock;
+
+    // Tire squash on landing; avoid zero-width collapse mid-turn
+    var onGround = Math.max(0, 1 - (hop + turnHop) / 2.2);
+    var squash = onGround * 0.035;
+    var flipSign = facing >= 0 ? -1 : 1;
+    var scaleX = flipSign * Math.max(0.18, Math.abs(facing)) * (1 + squash);
+    var scaleY = 1 - squash;
+
+    car.style.transform =
+      "translate3d(" + renderX.toFixed(1) + "px, " + y.toFixed(1) + "px, 0) " +
+      "rotate(" + pitch.toFixed(2) + "deg) " +
+      "scale(" + scaleX.toFixed(3) + ", " + scaleY.toFixed(3) + ")";
+
+    if (distSincePuff > 58) {
+      spawnPuff(renderX, y, carWidth, dir);
+      distSincePuff = 0;
+      lastIdlePuff = now;
+    } else if (now - lastIdlePuff > 1300) {
+      spawnPuff(renderX, y, carWidth, dir);
+      lastIdlePuff = now;
+    }
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    inView = entries[0].isIntersecting;
+    if (inView) {
+      lastTime = 0;
+      requestAnimationFrame(frame);
+    }
+  }, { rootMargin: "150px 0px" });
+
+  observer.observe(track);
+})();
 });
 </script>
 </body>
