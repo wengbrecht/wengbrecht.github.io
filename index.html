@@ -6,104 +6,135 @@
 <title>William Engbrecht | Mechanical Engineering Portfolio</title>
 <link rel="icon" type="image/png" href="images/FaviconFlag.png">
 <link rel="apple-touch-icon" href="images/FaviconFlag.png">
-  <meta name="description" content="William Engbrecht, Mechanical Engineering and Applied Math student at the University of Maryland. UMD Loop drones, TerpsRacing Baja, AIAA Design Build Fly, and the ASNE electric boat team.">
+<meta name="description" content="William Engbrecht, Mechanical Engineering and Applied Math student at the University of Maryland. UMD Loop drones, TerpsRacing Baja, AIAA Design Build Fly, and the ASNE electric boat team.">
 <meta property="og:title" content="William Engbrecht | Mechanical Engineering Portfolio">
 <meta property="og:description" content="ME + Applied Math at UMD. Drones, Baja, Design Build Fly, and electric boats.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wengbrecht.github.io/">
 <meta property="og:image" content="https://wengbrecht.github.io/images/loop-drone-flight.jpg">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c0e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a drawing sheet. Each team is a numbered callout: photo, write-up, spec table. A title block closes the page. */
+/* Page plan: dark split hero, team index, four scroll-driven photo chapters, then light reading sections and a red contact block. */
 :root {
-  --paper: #f3f5f6;
-  --sheet: #ffffff;
-  --ink: #15191c;
-  --muted: #5b656c;
-  --rule: #cdd4d8;
-  --accent: #c8102e;
-  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
-  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --paper: #0f1214; --sheet: #161a1d; --ink: #e6eaec; --muted: #94a0a7; --rule: #2c3337; --accent: #ff5a6e; }
+  --night: #0b0c0e;
+  --night-2: #131518;
+  --night-line: rgba(255, 255, 255, 0.12);
+  --on-night: #f3f2ee;
+  --on-night-muted: #a4a9ae;
+  --paper: #f3f1ec;
+  --card: #fbfaf7;
+  --ink: #111315;
+  --ink-muted: #5a5f64;
+  --paper-line: #d8d4ca;
+  --red: #c8102e;
+  --red-bright: #ff4d63;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --gutter: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --edge: max(var(--gutter), calc((100vw - 1200px) / 2));
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 * { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font: 400 16px/1.6 var(--body);
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 32px 48px;
-}
-img { max-width: 100%; height: auto; display: block; }
-.sheet { max-width: 1120px; margin: 0 auto; background: var(--sheet); border: 1.5px solid var(--ink); }
-.zones { display: flex; border-bottom: 1px solid var(--rule); font: 500 11px/1 var(--mono); color: var(--muted); }
-.zones span { flex: 1; text-align: center; padding: 6px 0; border-right: 1px solid var(--rule); }
-.zones span:last-child { border-right: 0; }
-.inner { padding: clamp(20px, 4vw, 48px); display: grid; gap: 64px; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; background: var(--night); color: var(--on-night); font: 400 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+h1, h2, h3, p, figure { margin: 0; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; }
+p { text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; border-radius: 6px; }
+.mono { font: 500 12px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.pad { padding-inline: var(--edge); }
 
-h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
-.label { font: 500 12px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* scroll progress */
+.progress { position: fixed; inset: 0 0 auto 0; height: 2px; background: var(--red-bright); transform-origin: 0 50%; transform: scaleX(0); z-index: 40; display: none; }
+@supports (animation-timeline: scroll()) {
+  .progress { display: block; animation: grow linear both; animation-timeline: scroll(root); }
+  @keyframes grow { to { transform: scaleX(1); } }
+}
+
+/* nav */
+.nav { position: fixed; inset: 0 0 auto 0; z-index: 30; height: 56px; display: flex; align-items: center; gap: 28px; color: var(--on-night); background: rgba(11, 12, 14, 0.62); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border-bottom: 1px solid var(--night-line); }
+.brand { font: 700 17px/1 var(--display); margin-right: auto; display: flex; align-items: center; gap: 10px; }
+.brand i { width: 8px; height: 8px; border-radius: 50%; background: var(--red-bright); }
+.nav .link { font-size: 14px; color: var(--on-night-muted); transition: color 0.2s; }
+.nav .link:hover { color: var(--on-night); }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; font: 500 14px/1 var(--sans); padding: 12px 18px; border-radius: 999px; border: 1px solid var(--night-line); background: rgba(255, 255, 255, 0.04); color: inherit; cursor: pointer; transition: transform 0.2s, background 0.2s, border-color 0.2s; }
+.btn:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.4); }
+.btn--solid { background: var(--on-night); color: var(--night); border-color: var(--on-night); }
+.nav .btn { padding: 9px 16px; }
 
 /* hero */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
-.hero h1 { font-size: clamp(48px, 8vw, 96px); font-weight: 800; font-variation-settings: "wdth" 70; line-height: 0.92; margin-top: 10px; }
-.hero h1 span { color: var(--accent); }
-.lede { font-size: 18px; max-width: 34em; margin: 22px 0 28px; }
-.contact { display: grid; gap: 10px; font: 400 14px/1.4 var(--mono); margin: 0; }
-.contact div { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; border-top: 1px solid var(--rule); padding-top: 10px; }
-.contact dt { color: var(--muted); }
-.contact dd { margin: 0; overflow-wrap: anywhere; }
-.copy { font: 500 11px/1 var(--mono); border: 1px solid var(--rule); background: transparent; color: var(--muted); padding: 3px 7px; margin-left: 8px; cursor: pointer; border-radius: 3px; }
-.copy:hover { color: var(--ink); border-color: var(--ink); }
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); min-height: 100vh; min-height: 100svh; }
+.hero-copy { display: flex; flex-direction: column; justify-content: flex-end; padding: 96px clamp(24px, 4vw, 64px) clamp(40px, 6vh, 72px) var(--edge); }
+.status { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; font: 500 13px/1.3 var(--sans); padding: 8px 14px 8px 12px; border: 1px solid var(--night-line); border-radius: 999px; }
+.status i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #2fd08a; box-shadow: 0 0 0 4px rgba(47, 208, 138, 0.18); }
+.hero h1 { font-size: clamp(56px, 8.6vw, 140px); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; margin-top: 28px; }
+.hero h1 .line { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.hero h1 .line > span { display: block; }
+.hero h1 .red { color: var(--red-bright); }
+.lede { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; max-width: 34em; margin-top: 28px; color: var(--on-night); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.hero-meta { margin-top: 36px; color: var(--on-night-muted); }
+.hero-shot { position: relative; min-height: 320px; }
+.hero-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.hero-shot::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, var(--night), rgba(11, 12, 14, 0) 28%), linear-gradient(to top, rgba(11, 12, 14, 0.55), rgba(11, 12, 14, 0) 30%); }
+.cap { position: absolute; z-index: 2; bottom: 20px; font-size: 13px; line-height: 1; color: #fff; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 8px 12px; border-radius: 999px; }
+.hero-shot .cap { right: 20px; }
 
-figure { margin: 0; }
-figure img { border: 1px solid var(--rule); width: 100%; }
-figcaption { font: 400 12px/1.4 var(--mono); color: var(--muted); margin-top: 8px; }
-.hero figure img { aspect-ratio: 3 / 2; object-fit: cover; }
+/* team index */
+.index { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--night-line); border-bottom: 1px solid var(--night-line); }
+.index a { display: grid; gap: 6px; padding: 26px 22px 28px; border-left: 1px solid var(--night-line); transition: background 0.25s; }
+.index a:first-child { border-left: 0; }
+.index a:hover { background: var(--night-2); }
+.index .mono { color: var(--red-bright); }
+.index b { font: 700 22px/1.1 var(--display); letter-spacing: -0.02em; }
+.index span:last-child { font-size: 14px; color: var(--on-night-muted); }
 
-/* section head */
-.sec-head { display: flex; align-items: baseline; gap: 16px; border-bottom: 1.5px solid var(--ink); padding-bottom: 10px; margin-bottom: 8px; flex-wrap: wrap; }
-.sec-head h2 { font-size: 30px; font-weight: 700; font-variation-settings: "wdth" 85; }
-.sec-head .label { margin-left: auto; }
-
-/* teams */
-.team { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 36px; padding: 40px 0; border-bottom: 1px solid var(--rule); align-items: start; }
-.team:last-child { border-bottom: 0; padding-bottom: 0; }
-.team:nth-of-type(even) .media { order: 2; }
-.media { display: grid; gap: 12px; }
-.media .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.team-head { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: center; margin-bottom: 14px; }
-.balloon { width: 44px; height: 44px; border: 1.5px solid var(--accent); color: var(--accent); border-radius: 50%; display: grid; place-items: center; font: 500 15px/1 var(--mono); }
-.team h3 { font-size: 26px; font-weight: 700; font-variation-settings: "wdth" 88; line-height: 1.1; }
-.role { font: 400 13px/1.4 var(--mono); color: var(--muted); margin: 4px 0 0; }
-.team p { margin: 0 0 12px; max-width: 60ch; }
-.team .role { margin: 4px 0 0; }
-.spec { width: 100%; border: 1px solid var(--rule); border-collapse: collapse; font: 400 13px/1.35 var(--mono); font-variant-numeric: tabular-nums; margin-top: 18px; }
-.spec caption { text-align: left; padding: 8px 10px; border: 1px solid var(--rule); border-bottom: 0; background: var(--paper); }
-.spec td { padding: 7px 10px; border-top: 1px solid var(--rule); vertical-align: top; }
-.spec td:first-child { color: var(--muted); width: 40%; }
+/* chapters: the photo pins while the cards scroll past; each card switches the photo */
+.chapter { position: relative; }
+.stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: var(--night); }
+.shot { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s var(--ease); }
+.shot.on { opacity: 1; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 2.4s var(--ease); }
+.shot.on img { transform: none; }
+.shot--split img { width: 66%; -webkit-mask-image: linear-gradient(to right, #000 78%, transparent); mask-image: linear-gradient(to right, #000 78%, transparent); }
+.shot--fit { background: #fff; }
+.shot--fit img { object-fit: contain; padding: 96px 46% 64px 4%; }
+.stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 72%, rgba(0, 0, 0, 0.4)); }
+.tag { position: absolute; z-index: 2; top: 76px; color: #fff; display: flex; gap: 10px; align-items: center; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 8px 12px; border-radius: 999px; }
+.tag b { color: var(--red-bright); font-weight: 500; }
+.chapter--right .tag, .chapter--right .cap { left: var(--edge); }
+.chapter--left .tag, .chapter--left .cap { right: var(--edge); }
+.steps { position: relative; z-index: 3; margin-top: -100vh; margin-top: -100svh; pointer-events: none; }
+.step { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 96px var(--edge); }
+.chapter--right .step { justify-content: flex-end; }
+.card { pointer-events: auto; width: min(480px, 100%); padding: clamp(24px, 3vw, 36px); color: var(--on-night); background: rgba(11, 12, 14, 0.74); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid var(--night-line); border-radius: 18px; box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6); }
+.card .mono { color: var(--red-bright); }
+.card h3 { font-size: clamp(32px, 3.6vw, 46px); font-weight: 800; line-height: 1; letter-spacing: -0.035em; margin-top: 12px; }
+.role { display: inline-block; font: 500 13px/1 var(--sans); color: var(--red-bright); background: rgba(255, 77, 99, 0.14); padding: 7px 12px; border-radius: 999px; margin: 14px 0 4px; }
+.card p { font-size: 15px; line-height: 1.6; margin-top: 14px; }
+.spec { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; margin-top: 18px; }
+.spec td { padding: 9px 0; border-top: 1px solid var(--night-line); vertical-align: top; }
+.spec td:first-child { color: var(--on-night-muted); width: 40%; }
+.spec td:last-child { font-weight: 500; }
 
 /* baja scroll animation */
-.team--baja { position: relative; padding-bottom: 78px; }
 .baja-track {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  z-index: 4;
   height: 78px;
   pointer-events: none;
   overflow: hidden;
+  background: var(--night);
+  border-bottom: 1px solid var(--night-line);
 }
 .baja-car {
   position: absolute;
@@ -121,259 +152,393 @@ figcaption { font: 400 12px/1.4 var(--mono); color: var(--muted); margin-top: 8p
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  border: 1px solid var(--muted);
+  border: 1px solid var(--on-night-muted);
   opacity: 0;
   pointer-events: none;
   animation: baja-puff 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 @keyframes baja-puff {
-  0% {
-    opacity: 0.75;
-    transform: translate3d(0, 0, 0) scale(0.5);
-  }
-  100% {
-    opacity: 0;
-    transform: translate3d(var(--puff-dx, -26px), -22px, 0) scale(2.1);
-  }
+  0% { opacity: 0.75; transform: translate3d(0, 0, 0) scale(0.5); }
+  100% { opacity: 0; transform: translate3d(var(--puff-dx, -26px), -22px, 0) scale(2.1); }
+}
+
+/* light reading sections */
+.light { position: relative; z-index: 4; background: var(--paper); color: var(--ink); padding-block: clamp(72px, 10vw, 128px); }
+.light + .light { padding-top: 0; }
+.light .mono { color: var(--ink-muted); }
+.sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1.5px solid var(--ink); }
+.sec-head h2 { font-size: clamp(40px, 6vw, 76px); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; }
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--paper-line); }
+.timeline .when { padding-top: 6px; }
+.timeline h3 { font-size: 24px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+.timeline .where { font-size: 14px; color: var(--ink-muted); margin-top: 4px; }
+.timeline p:not(.where) { margin-top: 10px; max-width: 64ch; color: #2b2f33; }
+
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.tool { background: var(--card); border: 1px solid var(--paper-line); border-radius: 18px; padding: clamp(22px, 2.6vw, 32px); }
+.tool h3 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-top: 10px; }
+.tool ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.tool li { padding: 10px 0; border-top: 1px solid var(--paper-line); font-weight: 500; }
+.cert { margin-top: 16px; font-size: 14px; color: var(--ink-muted); }
+.cert b { color: var(--ink); font-weight: 600; }
+
+/* contact */
+.contact { position: relative; z-index: 4; background: var(--red); color: #fff; padding: clamp(72px, 11vw, 144px) var(--edge) 28px; }
+.contact h2 { font-size: clamp(40px, 7.4vw, 112px); font-weight: 800; line-height: 0.94; letter-spacing: -0.045em; max-width: 12em; margin-top: 18px; }
+.contact .actions { margin-top: clamp(32px, 5vw, 56px); }
+.contact .btn { border-color: rgba(255, 255, 255, 0.45); background: transparent; }
+.contact .btn:hover { border-color: #fff; }
+.contact .btn--solid { background: #fff; color: var(--red); border-color: #fff; }
+.foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: clamp(64px, 9vw, 120px); padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.3); font-size: 13px; }
+
+/* motion */
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1 .line > span { animation: rise 0.9s var(--ease) both; }
+  .hero h1 .line:nth-child(2) > span { animation-delay: 0.08s; }
+  .hero .fade { animation: fade 0.9s var(--ease) 0.25s both; }
+  @keyframes rise { from { transform: translateY(105%); } }
+  @keyframes fade { from { opacity: 0; transform: translateY(12px); } }
+  .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .js .reveal.in { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .shot, .shot img { transition: none; }
+  .shot img { transform: none; }
   .baja-car { transform: translate3d(16px, 0, 0) scaleX(-1) !important; }
   .baja-puff { display: none; }
+  .progress { display: none !important; }
 }
-
-/* before Maryland */
-.earlier { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 24px; }
-.earlier h3 { font-size: 20px; font-weight: 700; font-variation-settings: "wdth" 90; }
-.earlier .role { margin-bottom: 8px; }
-.earlier p { margin: 0; max-width: 60ch; }
-
-/* lower grid */
-.lower { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
-.lower h2 { font-size: 20px; font-weight: 700; font-variation-settings: "wdth" 85; border-bottom: 1.5px solid var(--ink); padding-bottom: 8px; margin-bottom: 14px; }
-.lower ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-.lower li { display: grid; gap: 2px; }
-.lower li b { font-weight: 600; }
-.lower li span { font: 400 13px/1.4 var(--mono); color: var(--muted); }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tags span { font: 400 13px/1 var(--mono); border: 1px solid var(--rule); padding: 6px 8px; }
-
-/* title block */
-.titleblock { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border-top: 1.5px solid var(--ink); font: 400 12px/1.3 var(--mono); }
-.titleblock > div { padding: 10px 14px; border-right: 1px solid var(--rule); display: grid; gap: 4px; }
-.titleblock > div:last-child { border-right: 0; }
-.titleblock b { font: 700 16px/1.2 var(--display); font-variation-settings: "wdth" 85; }
-.titleblock .label { font-size: 10px; }
 
 @media (max-width: 860px) {
-  .hero, .team, .earlier, .lower { grid-template-columns: 1fr; }
-  .team:nth-of-type(even) .media { order: 0; }
-  .team { gap: 24px; }
-  .titleblock { grid-template-columns: 1fr 1fr; }
-  .titleblock > div:nth-child(2) { border-right: 0; }
-  .titleblock > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
-}
-@media (max-width: 480px) {
-  .zones span:nth-child(n+5) { display: none; }
-  .media .pair { grid-template-columns: 1fr; }
+  .nav .link { display: none; }
+  .nav .link--keep { display: inline; }
+  .nav { gap: 18px; }
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero-shot { order: -1; height: 56vh; height: 56svh; }
+  .hero-shot::before { background: linear-gradient(to top, var(--night), rgba(11, 12, 14, 0) 40%); }
+  .hero-shot .cap { bottom: auto; top: 72px; }
+  .hero-copy { padding: 8px var(--gutter) 48px; }
+  .index { grid-template-columns: 1fr 1fr; }
+  .index a:nth-child(odd) { border-left: 0; }
+  .index a:nth-child(n+3) { border-top: 1px solid var(--night-line); }
+  /* photo sticks to the top of the screen, text scrolls underneath it */
+  .stage { height: 46vh; height: 46svh; z-index: 5; }
+  .tag { top: 68px; left: var(--gutter) !important; right: auto !important; }
+  .cap { bottom: 12px; left: var(--gutter) !important; right: auto !important; }
+  .shot--fit img { padding: 60px 12px 40px; }
+  .shot--split img { width: 100%; -webkit-mask-image: none; mask-image: none; }
+  .steps { margin-top: 0; pointer-events: auto; }
+  .step { min-height: 0; display: block; padding: 28px var(--gutter) 22vh; }
+  .step:last-child { padding-bottom: 56px; }
+  .card { width: auto; padding: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border: 0; border-radius: 0; box-shadow: none; }
+  .timeline li { grid-template-columns: 1fr; gap: 6px; }
+  .tools { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
-<main class="sheet">
-  <div class="zones" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div>
+<div class="progress" aria-hidden="true"></div>
 
-  <div class="inner">
-    <header class="hero">
-      <div>
-        <p class="label">Mechanical Engineering + Applied Math · University of Maryland</p>
-        <h1>William<br><span>Engbrecht</span></h1>
-        <p class="lede">Most of my time at Maryland goes into four engineering teams: drones for UMD Loop, powertrain for TerpsRacing Baja, propulsion for Design Build Fly, and the electric boat team, where I'm VP of Relations. I'm looking for a Summer 2027 mechanical engineering internship.</p>
-        <dl class="contact">
-          <div><dt>Email</dt><dd><a href="mailto:wm.re@yahoo.com">wm.re@yahoo.com</a><button class="copy" type="button" id="copy-email" data-copy="wm.re@yahoo.com">Copy</button></dd></div>
-          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/williamengbrecht">linkedin.com/in/williamengbrecht</a></dd></div>
-          <div><dt>GitHub</dt><dd><a href="https://github.com/wengbrecht">github.com/wengbrecht</a></dd></div>
-          <div><dt>Graduating</dt><dd>May 2028 · B.S. ME + B.S. Math</dd></div>
-        </dl>
+<nav class="nav pad" aria-label="Page">
+  <a class="brand" href="#top"><i></i>William Engbrecht</a>
+  <a class="link" href="#work">Work</a>
+  <a class="link" href="#background">Background</a>
+  <a class="link" href="#toolbox">Toolbox</a>
+  <a class="link link--keep" href="coursework.html">Coursework</a>
+  <a class="btn btn--solid" href="#contact">Contact</a>
+</nav>
+
+<main id="top">
+  <header class="hero">
+    <div class="hero-copy">
+      <span class="status fade"><i></i>Looking for a Summer 2027 mechanical engineering internship</span>
+      <h1><span class="line"><span>William</span></span><span class="line"><span class="red">Engbrecht</span></span></h1>
+      <p class="lede fade">Most of my time at Maryland goes into four engineering teams: drones for UMD Loop, powertrain for TerpsRacing Baja, propulsion for Design Build Fly, and the electric boat team, where I'm VP of Relations.</p>
+      <div class="actions fade">
+        <a class="btn btn--solid" href="#work">See the work</a>
+        <a class="btn" href="mailto:wm.re@yahoo.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/williamengbrecht">LinkedIn</a>
+        <a class="btn" href="https://github.com/wengbrecht">GitHub</a>
       </div>
-      <figure>
-        <img src="images/loop-rover-campus.jpg" width="1800" height="1202" alt="UMD Loop's six-wheeled rover with its robotic arm raised, in front of the flower M on the UMD campus">
-        <figcaption>UMD Loop's rover on campus</figcaption>
-      </figure>
-    </header>
+      <p class="mono hero-meta fade">B.S. Mechanical Engineering + B.S. Mathematics · University of Maryland · May 2028</p>
+    </div>
+    <figure class="hero-shot">
+      <img src="images/loop-rover-courtyard.jpg" width="1400" height="2096" alt="UMD Loop's six-wheeled rover with its robotic arm extended, in a courtyard in front of a red glass building">
+      <figcaption class="cap">UMD Loop's rover</figcaption>
+    </figure>
+  </header>
 
-    <section aria-labelledby="teams-h">
-      <div class="sec-head"><h2 id="teams-h">Teams</h2><span class="label">University of Maryland · Aug 2026 – present</span></div>
+  <nav class="index" aria-label="Teams">
+    <a href="#loop"><span class="mono">01</span><b>UMD Loop</b><span>Drone subteam</span></a>
+    <a href="#baja"><span class="mono">02</span><b>TerpsRacing Baja SAE</b><span>Powertrain · CNC machining</span></a>
+    <a href="#dbf"><span class="mono">03</span><b>AIAA Design Build Fly</b><span>Propulsion</span></a>
+    <a href="#boat"><span class="mono">04</span><b>ASNE PEP Electric Boat</b><span>Vice President of Relations</span></a>
+  </nav>
 
-      <article class="team">
-        <div class="media">
-          <figure>
-            <img src="images/loop-drone-flight.jpg" width="1800" height="1200" loading="lazy" alt="UMD Loop's quadcopter hovering against a blue sky">
-            <figcaption>UMD Loop's drone in flight</figcaption>
-          </figure>
-          <figure>
-            <img src="images/loop-rover-desert.jpg" width="1800" height="1200" loading="lazy" alt="UMD Loop's rover on red and white striped desert terrain">
-            <figcaption>The rover in the field</figcaption>
-          </figure>
-        </div>
-        <div>
-          <div class="team-head">
-            <div class="balloon">1</div>
-            <div><h3>UMD Loop</h3><p class="role">University Rover Challenge · Drone subteam</p></div>
-          </div>
-          <p>Loop builds a Mars-style rover and a drone that supports it for the University Rover Challenge. I'm designing the drone's payload gripper for URC 2027. It has to pick up irregular objects, so rigid plastic gears and mounts carry the load while compliant TPU fingers in a Fin Ray pattern wrap around whatever shape they close on.</p>
-          <p>I joined through Challenge Week, where my 8-person group built a 6-DoF miniature arm controller in a week.</p>
+  <section id="work" aria-label="Teams, University of Maryland, August 2026 to present">
+
+    <article class="chapter chapter--right" id="loop">
+      <div class="stage">
+        <figure class="shot on">
+          <img src="images/loop-rover-desert.jpg" width="1800" height="1200" alt="UMD Loop's rover on red and white striped desert terrain">
+          <figcaption class="cap">The rover in the field</figcaption>
+        </figure>
+        <figure class="shot shot--split">
+          <img src="images/loop-drone-hover.jpg" width="1800" height="1728" loading="lazy" alt="UMD Loop's quadcopter hovering low over a grass field">
+          <figcaption class="cap">UMD Loop's drone in flight</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="images/loop-rover-campus.jpg" width="1800" height="1202" loading="lazy" alt="UMD Loop's six-wheeled rover with its robotic arm raised, in front of the flower M on the UMD campus">
+          <figcaption class="cap">UMD Loop's rover on campus</figcaption>
+        </figure>
+        <span class="tag mono"><b>01</b>UMD Loop</span>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="card">
+          <span class="mono">Aug 2026 – present</span>
+          <h3>UMD Loop</h3>
+          <span class="role">University Rover Challenge · Drone subteam</span>
+          <p>Loop builds a Mars-style rover and a drone that supports it for the University Rover Challenge.</p>
+        </div></div>
+        <div class="step"><div class="card">
+          <span class="mono">The gripper</span>
+          <p>I'm designing the drone's payload gripper for URC 2027. It has to pick up irregular objects, so PETG gears and rigid plastic mounts carry the load while compliant TPU fingers in a Fin Ray pattern wrap around whatever shape they close on.</p>
           <table class="spec">
-            <caption class="label">Gripper targets</caption>
             <tr><td>Payload</td><td>1 kg</td></tr>
             <tr><td>Gripper mass</td><td>&lt; 300 g</td></tr>
             <tr><td>Fingers</td><td>TPU, Fin Ray pattern</td></tr>
-            <tr><td>Drive</td><td>Aluminum gears</td></tr>
+            <tr><td>Drive</td><td>PETG gears</td></tr>
           </table>
-        </div>
-      </article>
+        </div></div>
+        <div class="step"><div class="card">
+          <span class="mono">Challenge Week</span>
+          <p>I joined through Challenge Week, where my 8-person group built a 6-DoF miniature arm controller in a week.</p>
+        </div></div>
+      </div>
+    </article>
 
-      <article class="team team--baja">
-        <div class="media">
-          <figure>
-            <img src="images/baja-mud.jpg" width="1620" height="1080" loading="lazy" alt="A mud-covered Baja SAE off-road car cornering on a dirt course">
-            <figcaption>TerpsRacing's car on the dirt course</figcaption>
-          </figure>
-        </div>
-        <div>
-          <div class="team-head">
-            <div class="balloon">2</div>
-            <div><h3>TerpsRacing Baja SAE</h3><p class="role">Powertrain · CNC machining</p></div>
-          </div>
+    <article class="chapter chapter--left" id="baja">
+      <div class="stage">
+        <figure class="shot on">
+          <img src="images/baja-mud.jpg" width="1620" height="1080" loading="lazy" alt="A mud-covered Baja SAE off-road car cornering on a dirt course">
+          <figcaption class="cap">TerpsRacing's car on the dirt course</figcaption>
+        </figure>
+        <span class="tag mono"><b>02</b>TerpsRacing Baja SAE</span>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="card">
+          <span class="mono">Aug 2026 – present</span>
+          <h3>TerpsRacing Baja SAE</h3>
+          <span class="role">Powertrain · CNC machining</span>
           <p>Baja SAE teams design, build, and race a single-seat off-road car. On powertrain, I am working to design a CVT cooling system while preventing debris from entering the case.</p>
           <p>In the shop, I program 3-axis toolpaths in Fusion CAM to machine aluminum and steel parts for the car's suspension, powertrain, and other subteams.</p>
           <table class="spec">
-            <caption class="label">Shop work</caption>
             <tr><td>CAM</td><td>Fusion, 3-axis mill</td></tr>
             <tr><td>Materials</td><td>Aluminum, steel</td></tr>
             <tr><td>Systems</td><td>Suspension, powertrain</td></tr>
           </table>
-        </div>
-        <div class="baja-track" aria-hidden="true">
-          <img class="baja-car" src="images/Baja_puttputt.png" alt="">
-        </div>
-      </article>
+        </div></div>
+      </div>
+    </article>
+    <div class="baja-track" aria-hidden="true">
+      <img class="baja-car" src="images/baja-car.png" width="335" height="240" alt="">
+    </div>
 
-      <article class="team">
-        <div class="media">
-          <div class="pair">
-            <figure>
-              <img src="images/dbf-aircraft-snow.jpg" width="1800" height="1350" loading="lazy" alt="A fixed-wing RC aircraft sitting on a snow-covered field at dusk">
-              <figcaption>The 2026 aircraft</figcaption>
-            </figure>
-            <figure>
-              <img src="images/dbf-three-view.png" width="1800" height="1398" loading="lazy" alt="SolidWorks three-view drawing of the aircraft with dimensions in inches">
-              <figcaption>Its three-view, dimensions in inches</figcaption>
-            </figure>
-          </div>
-        </div>
-        <div>
-          <div class="team-head">
-            <div class="balloon">3</div>
-            <div><h3>AIAA Design Build Fly</h3><p class="role">Propulsion</p></div>
-          </div>
-          <p>DBF teams design and fly a remote-controlled aircraft for a new set of missions each year. I run propulsion trade studies, comparing battery, propeller, and motor combinations to find the most power-efficient setup that stays inside the contest's design rules.</p>
+    <article class="chapter chapter--right" id="dbf">
+      <div class="stage">
+        <figure class="shot on">
+          <img src="images/dbf-aircraft-snow.jpg" width="1800" height="1350" loading="lazy" alt="A fixed-wing RC aircraft sitting on a snow-covered field at dusk">
+          <figcaption class="cap">The 2026 aircraft</figcaption>
+        </figure>
+        <figure class="shot shot--fit">
+          <img src="images/dbf-three-view.png" width="1800" height="1398" loading="lazy" alt="SolidWorks three-view drawing of the aircraft with dimensions in inches">
+          <figcaption class="cap">Its three-view, dimensions in inches</figcaption>
+        </figure>
+        <span class="tag mono"><b>03</b>AIAA Design Build Fly</span>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="card">
+          <span class="mono">Aug 2026 – present</span>
+          <h3>AIAA Design Build Fly</h3>
+          <span class="role">Propulsion</span>
+          <p>DBF teams design and fly a remote-controlled aircraft for a new set of missions each year.</p>
+        </div></div>
+        <div class="step"><div class="card">
+          <span class="mono">Trade studies</span>
+          <p>I run propulsion trade studies, comparing battery, propeller, and motor combinations to find the setup with the longest flight time that stays inside the contest's design rules.</p>
           <table class="spec">
-            <caption class="label">Trade study</caption>
             <tr><td>Variables</td><td>Battery, propeller, motor</td></tr>
-            <tr><td>Objective</td><td>Power efficiency</td></tr>
+            <tr><td>Objective</td><td>Maximum flight time</td></tr>
             <tr><td>Constraint</td><td>Competition rules</td></tr>
           </table>
-        </div>
-      </article>
+        </div></div>
+      </div>
+    </article>
 
-      <article class="team">
-        <div class="media">
-          <figure>
-            <img src="images/pep-team-meeting.jpg" width="1800" height="1350" loading="lazy" alt="Electric boat team members gathered around a whiteboard in a lab">
-            <figcaption>Electric boat team meeting</figcaption>
-          </figure>
-        </div>
-        <div>
-          <div class="team-head">
-            <div class="balloon">4</div>
-            <div><h3>ASNE PEP Electric Boat</h3><p class="role">Vice President of Relations</p></div>
-          </div>
-          <p>We're converting a foiling catamaran hull to twin-motor electric propulsion</p>
+    <article class="chapter chapter--left" id="boat">
+      <div class="stage">
+        <figure class="shot on">
+          <img src="images/pep-team-meeting.jpg" width="1800" height="1350" loading="lazy" alt="Electric boat team members gathered around a whiteboard in a lab">
+          <figcaption class="cap">Electric boat team meeting</figcaption>
+        </figure>
+        <span class="tag mono"><b>04</b>ASNE PEP Electric Boat</span>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="card">
+          <span class="mono">Aug 2026 – present</span>
+          <h3>ASNE PEP Electric Boat</h3>
+          <span class="role">Vice President of Relations</span>
+          <p>We're converting a foiling catamaran hull to twin-motor electric propulsion.</p>
           <p>As VP of Relations, I am responsible for corporate outreach for the 20-member team. I pitch tiered sponsorships around our ASNE race and a Guinness World Record attempt, and build relationships with companies for technical expertise, software, and funding.</p>
           <table class="spec">
-            <caption class="label">Scope</caption>
             <tr><td>Hull</td><td>Foiling catamaran</td></tr>
             <tr><td>Propulsion</td><td>Twin electric motors</td></tr>
             <tr><td>Team</td><td>20 members</td></tr>
           </table>
-        </div>
-      </article>
-    </section>
+        </div></div>
+      </div>
+    </article>
+  </section>
 
-    <section aria-labelledby="earlier-h">
-      <div class="sec-head"><h2 id="earlier-h">Before Maryland</h2><span class="label">Anne Arundel Community College</span></div>
-      <div class="earlier">
+  <section id="background" class="light pad" aria-labelledby="background-h">
+    <div class="sec-head reveal"><h2 id="background-h">Background</h2><span class="mono">Most recent first</span></div>
+    <ol class="timeline">
+      <li class="reveal">
+        <span class="mono when">Aug 2026 – May 2028</span>
+        <div>
+          <h3>University of Maryland, College Park</h3>
+          <p class="where">B.S. Mechanical Engineering · B.S. Mathematics (Applied)</p>
+          <p>Intended minor in Quantum Science and Engineering. Coursework so far includes Dynamics, Electronics &amp; Instrumentation, Mechanics II, and Probability Theory.</p>
+        </div>
+      </li>
+      <li class="reveal">
+        <span class="mono when">May 2026</span>
+        <div>
+          <h3>A.S. Engineering Transfer</h3>
+          <p class="where">Anne Arundel Community College</p>
+          <p>GPA 3.86, summa cum laude. Dean's list Summer 2025, Fall 2025, and Spring 2026.</p>
+        </div>
+      </li>
+      <li class="reveal">
+        <span class="mono when">April 2026</span>
         <div>
           <h3>Competition hovercraft</h3>
-          <p class="role">April 2026</p>
+          <p class="where">Anne Arundel Community College</p>
           <p>Built in a month to complete speed, payload, and terrain tasks. I designed 4 SolidWorks parts and 3D-printed them to fit the stock hardware, then kept reworking the hull. It finished 38% faster than any other entry and took the top overall score.</p>
         </div>
+      </li>
+      <li class="reveal">
+        <span class="mono when">April 2026</span>
+        <div>
+          <h3>Calculus Integration Bee winner</h3>
+          <p class="where">Anne Arundel Community College</p>
+        </div>
+      </li>
+      <li class="reveal">
+        <span class="mono when">June 2025 – May 2026</span>
         <div>
           <h3>Tutor</h3>
-          <p class="role">June 2025 – May 2026</p>
+          <p class="where">Anne Arundel Community College</p>
           <p>Worked one-on-one with more than 10 students in technical math, calculus, physics, and chemistry, adjusting how I explained things to each student's background.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="lower" aria-label="Tools, education and honors">
-      <div>
-        <h2>Tools</h2>
-        <div class="tags">
-          <span>SolidWorks</span><span>Fusion CAM</span><span>3-axis CNC mill</span><span>Manual lathe</span>
-          <span>Stick welding</span><span>Tube coping</span><span>FDM printing</span><span>GD&amp;T</span>
-          <span>MATLAB</span><span>Python</span><span>C / C++</span><span>Arduino</span>
-          <span>Git</span><span>Excel</span><span>LaTeX</span>
+      </li>
+      <li class="reveal">
+        <span class="mono when">November 2022</span>
+        <div>
+          <h3>Eagle Scout</h3>
+          <p class="where">BSA</p>
         </div>
-      </div>
-      <div>
-        <h2>Education</h2>
-        <ul>
-          <li><b>University of Maryland, College Park</b><span>B.S. Mechanical Engineering, B.S. Mathematics (Applied) · Intended minor: Quantum Science and Engineering · May 2028</span></li>
-          <li><b>Anne Arundel Community College</b><span>A.S. Engineering Transfer · GPA 3.86, summa cum laude · May 2026</span></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Honors</h2>
-        <ul>
-          <li><b>Calculus Integration Bee winner</b><span>AACC · April 2026</span></li>
-          <li><b>Cisco CCNA</b><span>Valid through 2027</span></li>
-          <li><b>Eagle Scout</b><span>BSA · November 2022</span></li>
-        </ul>
-      </div>
-    </section>
-  </div>
+      </li>
+    </ol>
+  </section>
 
-  <footer class="titleblock">
-    <div><span class="label">Title</span><b>W. Engbrecht, Portfolio</b></div>
-    <div><span class="label">Material</span><span>Al, steel, TPU, PLA</span></div>
-    <div><span class="label">Scale</span><span>1 : 1</span></div>
-    <div><span class="label">Rev</span><span>B · Nov 2026</span></div>
-  </footer>
+  <section id="toolbox" class="light pad" aria-labelledby="toolbox-h">
+    <div class="sec-head reveal"><h2 id="toolbox-h">Toolbox</h2><span class="mono">What I work with</span></div>
+    <div class="tools">
+      <div class="tool reveal">
+        <span class="mono">01</span>
+        <h3>Design</h3>
+        <ul><li>SolidWorks</li><li>GD&amp;T</li><li>Technical reporting</li><li>LaTeX</li></ul>
+      </div>
+      <div class="tool reveal">
+        <span class="mono">02</span>
+        <h3>Make</h3>
+        <ul><li>Fusion CAM, 3-axis CNC mill</li><li>Manual lathe</li><li>Stick welding</li><li>Tube coping</li><li>FDM 3D printing</li></ul>
+      </div>
+      <div class="tool reveal">
+        <span class="mono">03</span>
+        <h3>Compute</h3>
+        <ul><li>MATLAB</li><li>Python</li><li>C / C++</li><li>Arduino</li><li>Git / GitHub</li><li>Excel</li></ul>
+      </div>
+    </div>
+    <p class="cert reveal"><b>Certification:</b> Cisco Certified Network Associate (CCNA), valid through 2027.</p>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <span class="mono reveal">Contact</span>
+    <h2 id="contact-h" class="reveal">I'm looking for a Summer 2027 mechanical engineering internship.</h2>
+    <div class="actions reveal">
+      <span><a class="btn btn--solid" href="mailto:wm.re@yahoo.com">wm.re@yahoo.com</a></span>
+      <button class="btn copy" type="button" data-copy="wm.re@yahoo.com">Copy email</button>
+      <a class="btn" href="https://www.linkedin.com/in/williamengbrecht">LinkedIn</a>
+      <a class="btn" href="https://github.com/wengbrecht">GitHub</a>
+    </div>
+    <footer class="foot"><span>William Engbrecht · Mechanical Engineering + Applied Math, University of Maryland</span><span>Nov 2026</span></footer>
+  </section>
 </main>
 
 <script>
+document.documentElement.classList.add("js");
+
 document.querySelectorAll(".copy").forEach(function (btn) {
   btn.addEventListener("click", function () {
     var text = btn.getAttribute("data-copy");
-    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1500); };
+    var label = btn.textContent;
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = label; }, 1500); };
     var fallback = function () {
       var r = document.createRange(); r.selectNodeContents(btn.parentNode.querySelector("a"));
       var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
     };
     try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
   });
-  (function () {
+});
+
+(function () {
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+
+  // fade-up for the reading sections
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  // chapters: the card crossing the trigger line picks which photo shows
+  var narrow = window.matchMedia("(max-width: 860px)").matches;
+  var line = narrow ? "-70% 0px -30% 0px" : "-50% 0px -50% 0px";
+  document.querySelectorAll(".chapter").forEach(function (chapter) {
+    var shots = chapter.querySelectorAll(".shot");
+    var steps = chapter.querySelectorAll(".step");
+    if (shots.length < 2) return;
+    var so = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = Array.prototype.indexOf.call(steps, e.target);
+        shots.forEach(function (s, j) { s.classList.toggle("on", j === Math.min(i, shots.length - 1)); });
+      });
+    }, { rootMargin: line });
+    steps.forEach(function (s) { so.observe(s); });
+  });
+})();
+
+(function () {
   var track = document.querySelector(".baja-track");
   var car = document.querySelector(".baja-car");
   if (!track || !car) return;
@@ -509,7 +674,6 @@ document.querySelectorAll(".copy").forEach(function (btn) {
 
   observer.observe(track);
 })();
-});
 </script>
 </body>
 </html>

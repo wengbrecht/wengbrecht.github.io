@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coursework | William Engbrecht</title>
+<link rel="icon" type="image/png" href="images/FaviconFlag.png">
+<link rel="apple-touch-icon" href="images/FaviconFlag.png">
+<meta name="description" content="Completed and current coursework for William Engbrecht, Mechanical Engineering and Applied Math at the University of Maryland.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Same tokens and nav as index.html. */
+:root {
+  --night: #0b0c0e;
+  --night-line: rgba(255, 255, 255, 0.12);
+  --on-night: #f3f2ee;
+  --on-night-muted: #a4a9ae;
+  --paper: #f3f1ec;
+  --card: #fbfaf7;
+  --ink: #111315;
+  --ink-muted: #5a5f64;
+  --paper-line: #d8d4ca;
+  --red: #c8102e;
+  --red-bright: #ff4d63;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --gutter: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --edge: max(var(--gutter), calc((100vw - 1200px) / 2));
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--red-bright); outline-offset: 3px; border-radius: 6px; }
+.mono { font: 500 12px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.pad { padding-inline: var(--edge); }
+
+.nav { position: fixed; inset: 0 0 auto 0; z-index: 30; height: 56px; display: flex; align-items: center; gap: 28px; color: var(--on-night); background: rgba(11, 12, 14, 0.62); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border-bottom: 1px solid var(--night-line); }
+.brand { font: 700 17px/1 var(--display); margin-right: auto; display: flex; align-items: center; gap: 10px; }
+.brand i { width: 8px; height: 8px; border-radius: 50%; background: var(--red-bright); }
+.nav .link { font-size: 14px; color: var(--on-night-muted); transition: color 0.2s; }
+.nav .link:hover, .nav .link[aria-current] { color: var(--on-night); }
+.btn { display: inline-flex; align-items: center; font: 500 14px/1 var(--sans); padding: 9px 16px; border-radius: 999px; border: 1px solid var(--on-night); background: var(--on-night); color: var(--night); }
+
+.head { background: var(--night); color: var(--on-night); padding-top: 136px; padding-bottom: 56px; }
+.head .mono { color: var(--red-bright); }
+.head h1 { font-size: clamp(52px, 8vw, 120px); font-weight: 800; line-height: 0.9; letter-spacing: -0.045em; margin-top: 18px; }
+.head p { max-width: 40em; margin-top: 22px; color: var(--on-night-muted); font-size: 17px; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+.term { display: inline-block; font: 500 11px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
+.term--done { color: var(--ink-muted); background: rgba(17, 19, 21, 0.06); }
+.term--now { color: #0d6b45; background: rgba(47, 208, 138, 0.16); }
+.term--next { color: var(--red); background: rgba(200, 16, 46, 0.09); }
+.head .term--done { color: var(--on-night-muted); background: rgba(255, 255, 255, 0.08); }
+.head .term--now { color: #2fd08a; background: rgba(47, 208, 138, 0.14); }
+.head .term--next { color: var(--red-bright); background: rgba(255, 77, 99, 0.14); }
+
+.groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-block: 56px 96px; }
+.group { background: var(--card); border: 1px solid var(--paper-line); border-radius: 18px; padding: clamp(22px, 2.6vw, 32px); }
+.group .mono { color: var(--ink-muted); }
+.group h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin-top: 10px; }
+.group ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.group li { display: grid; grid-template-columns: 88px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 11px 0; border-top: 1px solid var(--paper-line); }
+.code { font: 500 13px/1.3 var(--mono); color: var(--ink-muted); }
+.title { font-weight: 500; line-height: 1.35; }
+.title small { display: block; font-size: 13px; font-weight: 400; color: var(--ink-muted); }
+
+.foot { background: var(--night); color: var(--on-night-muted); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 24px; font-size: 13px; }
+
+@media (max-width: 860px) {
+  .nav { gap: 18px; }
+  .nav .link--hide { display: none; }
+  .groups { grid-template-columns: 1fr; }
+  .head { padding-top: 112px; }
+}
+@media (max-width: 420px) {
+  .group li { grid-template-columns: minmax(0, 1fr) auto; }
+  .code { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+<nav class="nav pad" aria-label="Page">
+  <a class="brand" href="index.html"><i></i>William Engbrecht</a>
+  <a class="link link--hide" href="index.html#work">Work</a>
+  <a class="link link--hide" href="index.html#background">Background</a>
+  <a class="link link--hide" href="index.html#toolbox">Toolbox</a>
+  <a class="link" href="coursework.html" aria-current="page">Coursework</a>
+  <a class="btn" href="index.html#contact">Contact</a>
+</nav>
+
+<main>
+  <header class="head pad">
+    <span class="mono">B.S. Mechanical Engineering · B.S. Mathematics (Applied)</span>
+    <h1>Coursework</h1>
+    <p>Classes completed at Anne Arundel Community College, UMBC, and through AP credit, plus what I'm taking at Maryland this year. Course numbers are the UMD equivalents.</p>
+    <div class="legend">
+      <span class="term term--done">Completed</span>
+      <span class="term term--now">Fall 2026</span>
+      <span class="term term--next">Spring 2027</span>
+    </div>
+  </header>
+
+  <div class="groups pad">
+    <section class="group" aria-labelledby="g-mech">
+      <span class="mono">01</span>
+      <h2 id="g-mech">Engineering Mechanics &amp; Thermal-Fluids</h2>
+      <ul>
+        <li><span class="code">ENES 102</span><span class="title">Statics<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">ENES 221</span><span class="title">Dynamics<small>UMBC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">ENES 220</span><span class="title">Mechanics II<small>UMD</small></span><span class="term term--now">Fall 2026</span></li>
+        <li><span class="code">ENES 232</span><span class="title">Thermodynamics<small>UMD</small></span><span class="term term--now">Fall 2026</span></li>
+        <li><span class="code">ENME 331</span><span class="title">Fluid Mechanics<small>UMD</small></span><span class="term term--next">Spring 2027</span></li>
+        <li><span class="code">ENME 382</span><span class="title">Introduction to Materials Engineering<small>UMD</small></span><span class="term term--next">Spring 2027</span></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-design">
+      <span class="mono">02</span>
+      <h2 id="g-design">Design &amp; Manufacturing</h2>
+      <ul>
+        <li><span class="code">ENES 100</span><span class="title">Introduction to Engineering Design<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">ENME 272</span><span class="title">Introduction to Computer-Aided Design<small>UMD</small></span><span class="term term--now">Fall 2026</span></li>
+        <li><span class="code">ENME 392</span><span class="title">Statistical Methods for Product &amp; Process Development<small>UMD</small></span><span class="term term--next">Spring 2027</span></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-elec">
+      <span class="mono">03</span>
+      <h2 id="g-elec">Electronics &amp; Computing</h2>
+      <ul>
+        <li><span class="code">CMSC 131</span><span class="title">Object-Oriented Programming I<small>AP Computer Science A</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">ENME 202</span><span class="title">Computing Fundamentals for Engineers<small>UMD</small></span><span class="term term--now">Fall 2026</span></li>
+        <li><span class="code">ENME 350</span><span class="title">Electronics &amp; Instrumentation I<small>UMD</small></span><span class="term term--now">Fall 2026</span></li>
+        <li><span class="code">ENME 351</span><span class="title">Electronics &amp; Instrumentation II<small>UMD</small></span><span class="term term--next">Spring 2027</span></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-math">
+      <span class="mono">04</span>
+      <h2 id="g-math">Mathematics &amp; Statistics</h2>
+      <ul>
+        <li><span class="code">MATH 140</span><span class="title">Calculus I<small>AP Calculus BC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">MATH 141</span><span class="title">Calculus II<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">MATH 241</span><span class="title">Calculus III<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">MATH 240</span><span class="title">Linear Algebra<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">MATH 246</span><span class="title">Differential Equations<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">STAT 410</span><span class="title">Introduction to Probability Theory<small>UMD</small></span><span class="term term--now">Fall 2026</span></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-sci">
+      <span class="mono">05</span>
+      <h2 id="g-sci">Physics &amp; Chemistry</h2>
+      <ul>
+        <li><span class="code">PHYS 161</span><span class="title">General Physics I<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">PHYS 260</span><span class="title">General Physics II<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">PHYS 270</span><span class="title">General Physics III<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">CHEM 131</span><span class="title">General Chemistry I<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">CHEM 271</span><span class="title">General Chemistry II<small>AACC</small></span><span class="term term--done">Completed</span></li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-comm">
+      <span class="mono">06</span>
+      <h2 id="g-comm">Communication &amp; Ethics</h2>
+      <ul>
+        <li><span class="code">COMM 107</span><span class="title">Oral Communication<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">ENEE 200</span><span class="title">Ethics &amp; the Information Age<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">Gen Ed</span><span class="title">Academic Writing &amp; Research<small>AACC</small></span><span class="term term--done">Completed</span></li>
+        <li><span class="code">ENGL 393</span><span class="title">Technical Writing<small>UMD</small></span><span class="term term--next">Spring 2027</span></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer class="foot pad"><span>William Engbrecht · Mechanical Engineering + Applied Math, University of Maryland</span><span>Nov 2026</span></footer>
+</body>
+</html>
